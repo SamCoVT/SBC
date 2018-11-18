@@ -131,6 +131,7 @@ hex
 ' eeprom-blockread  is BLOCK-READ
 ' eeprom-blockwrite is BLOCK-WRITE
 
+decimal
 \ =======================================================    
 
     
