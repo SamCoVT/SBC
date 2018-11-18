@@ -1,0 +1,46 @@
+Name     ADDECODE ;
+PartNo    ;
+Date     10/13/2017 ;
+Revision 01 ;
+Designer SamCo ;
+Company   ;
+Assembly  ;
+Location  ;
+Device   G22V10 ;
+
+/* *************** INPUT PINS *********************/
+PIN 1       = phi2     ; /* Clock                           */
+PIN [2..5]  = [a12..15]; /* Some lines swapped to make PCB easier */ 
+PIN [6..11] = [a11..6] ; /* Address bus a6-a15              */ 
+PIN 13      = rw       ; /* read/write*                     */ 
+PIN 14      = !reset   ; /*                                 */ 
+
+/** OUTPUTS **/
+PIN 15   = !romsel     ; /* Rom Select                      */ 
+PIN 16   = !viasel     ; /* 6522 Select (parallel io and timer) */ 
+PIN 17   =  lcden      ; /* LCD Enable, active high         */ 
+PIN 18   = !aciasel    ; /* 65C51 CS1* Select (serial)      */ 
+PIN 19   = !ramsel     ; /* RAM Select                      */ 
+PIN 20   = !rd         ; /* Separate rd and wr signals      */ 
+PIN 21   = !wr         ; 
+/* The following are not used on the current PCB */
+PIN 22   = !pitsel     ; /* 8254 Select (Timer)             */
+PIN 23   = hireset     ;
+
+/** EQUATIONS **/
+field addr = [a15..6];
+ramsel     = addr:[0000..7EFF];  /* 32K (-256 at top) RAM   */
+romsel     = addr:[8000..FFFF];  /* 32K ROM                 */
+
+/* peripherals are snuck into 256 memory locations at the
+   top of RAM                                               */
+viasel     = addr:[7F00..7F3F];
+pitsel     = addr:[7F40..7F7F];
+aciasel    = addr:[7F80..7FBF];
+lcden      = addr:[7FC0..7FFF] & phi2;
+
+rd         = rw & phi2;
+wr         = !rw & phi2;
+
+hireset    = reset;
+
