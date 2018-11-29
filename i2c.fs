@@ -126,8 +126,7 @@ hex
     ( Read last byte with NAK to stop )
     1 i2c-rx over 3FF + c! i2c-stop drop ;
 
-\ Connect to Fourth BLOCK words
-\ blocks.fs needs to be run first.
+\ Connect to Tali Forth 2 BLOCK words
 ' eeprom-blockread  is BLOCK-READ
 ' eeprom-blockwrite is BLOCK-WRITE
 
