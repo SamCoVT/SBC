@@ -19,7 +19,30 @@ language ever since.
 
 ![A 65C02-based Single Board Computer](https://github.com/SamCoVT/SBC/raw/master/SamCo_SBC.jpg)
 
-# Errata
+## Memory Map
+
+The memory map is currently as follows:
+
+|Memory Range | Function|
+|-------------|--------|
+|$0000-$7EFF  | RAM|
+|$7F00-$7F3F  | VIA (65C22 - parallel I/O)|
+|$7F40-$7F7F  | EXSEL1 (External Select #1) (Active Low)|
+|$7F80-$7FBF  | ACIA (65C51 - Serial port)|
+|$7FC0-$7FFF  | LCD|
+
+The EXSEL1 line is brought out to the expansion bus on the righ
+side of the PCB and is available for use.  The EXSEL2 line is an
+active-high version of the /RESET signal.  Both of these signals are
+not currently used by the SBC and can be repurposed by reprogramming
+the GAL.
+
+The memory decoding is handled by a GAL22V10, programmed from the
+ADDECODE.PLD file.  I used Wincupl (run under Wine on Linux) to
+generate the .jed (JEDEC) file, and then I used Galblast on an old
+Windows 98 machine with a parallel port adapter to program the GAL.
+
+## Errata
 
 * Because I used a WDC65C22S (which has a totem-pole IRQ output rather
   than the WDC65C22N which has an open drain IRQ output,) I had to cut
