@@ -127,8 +127,8 @@ hex
     1 i2c-rx over 3FF + c! i2c-stop drop ;
 
 \ Connect to Tali Forth 2 BLOCK words
-' eeprom-blockread  is BLOCK-READ
-' eeprom-blockwrite is BLOCK-WRITE
+' eeprom-blockread  BLOCK-READ-VECTOR  !
+' eeprom-blockwrite BLOCK-WRITE-VECTOR !
 
 decimal
 \ =======================================================    
